@@ -1,0 +1,58 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #f0f4f8;
+}
+
+h1 {
+  margin: 20px 0;
+}
+
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  width: 90%;
+  margin: auto;
+}
+
+.day {
+  padding: 15px;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.day:hover {
+  background: #dbeafe;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.panel {
+  background: white;
+  padding: 15px;
+  width: 40%;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+button {
+  margin: 15px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
