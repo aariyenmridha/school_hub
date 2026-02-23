@@ -46,7 +46,7 @@ document.getElementById("adminBtn").addEventListener("click", () => {
 
 document.getElementById("saveBtn").addEventListener("click", () => {
   const pass = document.getElementById("adminPass").value;
-  if (pass !== "1234") {
+  if (pass !== "School2026") {
     alert("Wrong password");
     return;
   }
@@ -64,4 +64,5 @@ document.getElementById("saveBtn").addEventListener("click", () => {
 generateCalendar();
 if ("serviceWorker" in navigator) {
 navigator.serviceWorker.register("service-worker.js");
+
 }
