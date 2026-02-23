@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Hub</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+
+<h1>School Hub</h1>
+
+<div id="calendar"></div>
+
+<div class="container">
+  <div class="panel">
+    <h3>News / Reports</h3>
+    <ul id="news"></ul>
+  </div>
+
+  <div class="panel">
+    <h3>Holiday / Special</h3>
+    <ul id="holiday"></ul>
+  </div>
+</div>
+
+<button id="adminBtn">Admin</button>
+
+<div id="adminPanel" class="hidden">
+  <input type="password" id="adminPass" placeholder="Enter Password">
+  <input type="date" id="adminDate">
+  <input type="text" id="adminNews" placeholder="News">
+  <input type="text" id="adminHoliday" placeholder="Holiday">
+  <button id="saveBtn">Save</button>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
