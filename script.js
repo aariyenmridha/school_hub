@@ -7,6 +7,7 @@ import { initializeApp } from "firebase/app";
 const firebaseConfig = {
   apiKey: "AIzaSyA5LmONt-L_kyC6zHHihn-hAFyMYxW0pqA",
   authDomain: "school-hub-8ead9.firebaseapp.com",
+  databaseURL:https://school-hub-8ead9-default-rtdb.asia-southeast1.firebasedatabase.app/
   projectId: "school-hub-8ead9",
   storageBucket: "school-hub-8ead9.firebasestorage.app",
   messagingSenderId: "326440268613",
@@ -116,3 +117,4 @@ function renderCalendar() {
 document.addEventListener('DOMContentLoaded', () => {
   renderCalendar();
 });
+
