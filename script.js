@@ -1,68 +1,93 @@
-const calendar = document.getElementById("calendar");
-const newsList = document.getElementById("news");
-const holidayList = document.getElementById("holiday");
+// ---------------------------
+// Firebase Imports
+// ---------------------------
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-let data = JSON.parse(localStorage.getItem("schoolData")) || {};
+const firebaseConfig = {
+  apiKey: "AIzaSyA5LmONt-L_kyC6zHHihn-hAFyMYxW0pqA",
+  authDomain: "school-hub-8ead9.firebaseapp.com",
+  projectId: "school-hub-8ead9",
+  storageBucket: "school-hub-8ead9.firebasestorage.app",
+  messagingSenderId: "326440268613",
+  appId: "1:326440268613:web:0b834a72e7786ca97fc42c"
+};
 
-const today = new Date();
-const year = today.getFullYear();
-const month = today.getMonth();
+// ---------------------------
+// Initialize Firebase
+// ---------------------------
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 
-function generateCalendar() {
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
+// ---------------------------
+// Local Storage for Events
+// ---------------------------
+let news = {};
+let holidays = {};
 
-  for (let i = 1; i <= daysInMonth; i++) {
-    const div = document.createElement("div");
-    div.className = "day";
-    div.textContent = i;
-
-    div.addEventListener("click", () => {
-      const dateKey = `${year}-${String(month+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
-      showData(dateKey);
-    });
-
-    calendar.appendChild(div);
+// ---------------------------
+// Fetch Data From Firebase
+// ---------------------------
+const eventsRef = ref(database, 'events');
+onValue(eventsRef, (snapshot) => {
+  const data = snapshot.val();
+  news = {};
+  holidays = {};
+  
+  for (let date in data) {
+    if (data[date].news) news[date] = data[date].news;
+    if (data[date].holiday) holidays[date] = data[date].holiday;
   }
-}
 
-function showData(dateKey) {
-  newsList.innerHTML = "";
-  holidayList.innerHTML = "";
-
-  if (data[dateKey]) {
-    if (data[dateKey].news)
-      newsList.innerHTML = `<li>${data[dateKey].news}</li>`;
-    if (data[dateKey].holiday)
-      holidayList.innerHTML = `<li>${data[dateKey].holiday}</li>`;
-  } else {
-    newsList.innerHTML = "<li>No news</li>";
-    holidayList.innerHTML = "<li>No holiday</li>";
-  }
-}
-
-document.getElementById("adminBtn").addEventListener("click", () => {
-  document.getElementById("adminPanel").classList.toggle("hidden");
+  // Optional: refresh calendar UI
+  updateCalendar();
 });
 
-document.getElementById("saveBtn").addEventListener("click", () => {
-  const pass = document.getElementById("adminPass").value;
-  if (pass !== "School2026") {
-    alert("Wrong password");
-    return;
-  }
+// ---------------------------
+// Admin Button
+// ---------------------------
+const adminBtn = document.getElementById('adminBtn');
+adminBtn.addEventListener('click', () => {
+  const date = prompt("Enter date (YYYY-MM-DD):");
+  const newsText = prompt("Enter News (leave empty if none):");
+  const holidayText = prompt("Enter Holiday (leave empty if none):");
 
-  const date = document.getElementById("adminDate").value;
-  const news = document.getElementById("adminNews").value;
-  const holiday = document.getElementById("adminHoliday").value;
-
-  data[date] = { news, holiday };
-  localStorage.setItem("schoolData", JSON.stringify(data));
-
-  alert("Saved!");
+  if (!date) return;
+  saveData(date, newsText, holidayText);
 });
 
-generateCalendar();
-if ("serviceWorker" in navigator) {
-navigator.serviceWorker.register("service-worker.js");
-
+// ---------------------------
+// Save Data to Firebase
+// ---------------------------
+function saveData(date, newsText, holidayText) {
+  set(ref(database, 'events/' + date), {
+    news: newsText || "",
+    holiday: holidayText || ""
+  });
+  alert('Data saved for ' + date);
 }
+
+// ---------------------------
+// Calendar Display Logic
+// ---------------------------
+// Example simple calendar rendering
+// You can replace this with your current calendar code
+
+const calendarEl = document.getElementById('calendar');
+const newsBox = document.getElementById('newsBox');
+const holidayBox = document.getElementById('holidayBox');
+
+function updateCalendar() {
+  // This is a simple example: click a date input
+  // Your actual calendar code may vary
+  // We'll assume you have a <input type="date" id="calendar">
+  calendarEl.addEventListener('change', (e) => {
+    const selectedDate = e.target.value; // YYYY-MM-DD
+
+    newsBox.innerText = news[selectedDate] || "No announcements";
+    holidayBox.innerText = holidays[selectedDate] || "No holiday";
+  });
+}
+
+// Initialize calendar display
+updateCalendar();
