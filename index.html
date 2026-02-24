@@ -1,42 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>School Hub</title>
-<link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+
+    input[type="date"] {
+      font-size: 18px;
+      padding: 5px;
+      margin-bottom: 15px;
+    }
+
+    #newsBox, #holidayBox {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      min-height: 40px;
+      background-color: #f9f9f9;
+    }
+
+    #adminBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #2d89ef;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #adminBtn:hover {
+      background-color: #1b5dab;
+    }
+  </style>
 </head>
-
 <body>
+  <h2>School Hub</h2>
 
-<h1>School Hub</h1>
+  <!-- Calendar date picker -->
+  <label for="calendar">Select a Date:</label>
+  <input type="date" id="calendar">
 
-<div id="calendar"></div>
+  <!-- News and Holiday boxes -->
+  <div id="newsBox">No announcements</div>
+  <div id="holidayBox">No holiday</div>
 
-<div class="container">
-  <div class="panel">
-    <h3>News / Reports</h3>
-    <ul id="news"></ul>
-  </div>
+  <!-- Admin button -->
+  <button id="adminBtn">Admin</button>
 
-  <div class="panel">
-    <h3>Holiday / Special</h3>
-    <ul id="holiday"></ul>
-  </div>
-</div>
-
-<button id="adminBtn">Admin</button>
-
-<div id="adminPanel" class="hidden">
-  <input type="password" id="adminPass" placeholder="Enter Password">
-  <input type="date" id="adminDate">
-  <input type="text" id="adminNews" placeholder="News">
-  <input type="text" id="adminHoliday" placeholder="Holiday">
-  <button id="saveBtn">Save</button>
-</div>
-
-<script src="script.js"></script>
-
+  <!-- Your script -->
+  <script type="module" src="script.js"></script>
 </body>
 </html>
